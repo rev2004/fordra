@@ -1,0 +1,11 @@
+find_Wopt<-function(Sb,Sw)
+{
+  eigen_Sw<-eigen(Sw)
+  eig_val_Sw<-eigen_Sw$values
+  eig_vec_Sw<-eigen_Sw$vectors
+  Kb<-(1/sqrt(eig_val_Sw))*(t(eig_vec_Sw)%*%Sb%*%eig_vec_Sw)*(1/sqrt(eig_val_Sw))
+  eigen_Kb<-eigen(Kb)
+  eig_val_Kb<-eigen_Kb$values
+  eig_vec_Kb<-eigen_Kb$vectors
+  W_opt<<-eig_vec_Sw*(1/sqrt(eig_val_Sw))*eig_vec_Kb  
+}
