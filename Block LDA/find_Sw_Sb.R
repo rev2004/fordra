@@ -1,0 +1,30 @@
+library(psych)
+find_Sw_Sb<-function(X,y)
+{
+  vector_size<<-dim(X)
+  d<-vector_size[1]
+  n<-vector_size[2]
+  label<<-table(y)
+  labs<<-as.numeric(names(label))
+  Cls<<-length(labs)
+  Sw<<-matrix(0,d,d)
+  Sb<<-matrix(0,d,d)
+  mu<-rowMeans(X)
+  dim(mu)<-c(d,1)
+  for(i in 1:Cls)
+  {
+    Xi<-X[,which(y==i)]
+    n<-ncol(Xi)
+    mu_i=rowMeans(Xi)
+    dim(mu_i)=c(d,1)
+    mu_i_new<-numeric()
+    for(j in 1:n)
+    {
+      mu_i_new<-cbind(mu_i_new,mu_i)
+    }
+    Xi<-Xi-mu_i_new
+    Xit=t(Xi)
+    Sw<<-Sw+(Xi%*%Xit)
+    Sb<<-Sb+((mu_i-mu)%*%t(mu_i-mu))
+  }
+}
